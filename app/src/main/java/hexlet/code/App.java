@@ -2,8 +2,7 @@ package hexlet.code;
 
 import io.javalin.Javalin;
 
-import java.io.IOException;
-import java.sql.SQLException;
+
 
 
 
