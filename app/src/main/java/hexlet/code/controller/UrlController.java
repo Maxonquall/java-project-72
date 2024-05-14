@@ -1,10 +1,12 @@
 package hexlet.code.controller;
 
+import hexlet.code.dto.urls.UrlPage;
 import hexlet.code.dto.urls.UrlsPage;
 import hexlet.code.model.Url;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.util.NamedRoutes;
 import io.javalin.http.Context;
+import io.javalin.http.NotFoundResponse;
 
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -53,6 +55,14 @@ public class UrlController {
             ctx.sessionAttribute("flash-type", "success");
             ctx.redirect(NamedRoutes.urlsPath());
         }
+    }
+
+    public static void show(Context ctx) throws SQLException {
+        var id = ctx.pathParamAsClass("id", Long.class).get();
+        var url = UrlRepository.find(id)
+                .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
+        var page = new UrlPage(id, url.getName(), url.getCreatedAt());
+        ctx.render("urls/show.jte", model("page", page));
     }
 }
 

@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Optional;
 
 
 public class UrlRepository extends BaseRepository {
@@ -69,6 +69,25 @@ public class UrlRepository extends BaseRepository {
             }
         }
     }
+
+    public static Optional<Url> find(Long id) throws SQLException {
+        var sql = "SELECT * FROM urls WHERE id = ?";
+        try (var conn = dataSource.getConnection();
+             var preparedStatement = conn.prepareStatement(sql)) {
+            preparedStatement.setLong(1, id);
+            var resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                var name = resultSet.getString("name");
+                var createdAt = resultSet.getTimestamp("created_at");
+                var url = new Url(name);
+                url.setId(id);
+                url.setCreatedAt(createdAt);
+                return Optional.of(url);
+            }
+            return Optional.empty();
+        }
+    }
+
 
 
 }

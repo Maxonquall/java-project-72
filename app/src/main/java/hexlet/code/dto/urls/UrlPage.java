@@ -1,14 +1,17 @@
 package hexlet.code.dto.urls;
 
 import hexlet.code.dto.BasePage;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import hexlet.code.model.Url;
 
-import java.util.List;
+import java.sql.Timestamp;
+
 
 @AllArgsConstructor
 @Getter
-public class UrlsPage extends BasePage {
-    private List<Url> urls;
+public class UrlPage extends BasePage {
+    private Long id;
+    private String name;
+    private Timestamp createdAt;
 }

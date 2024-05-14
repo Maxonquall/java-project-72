@@ -21,4 +21,8 @@ public class NamedRoutes {
     public static String postPath(String id) {
         return "/posts/" + id;
     }
+
+    public static String urlPath(String id) {
+        return urlsPath() + "/" + id;
+    }
 }

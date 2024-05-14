@@ -1,0 +1,54 @@
+@import hexlet.code.util.NamedRoutes
+@import hexlet.code.dto.urls.UrlPage
+@import java.time.format.DateTimeFormatter
+@param UrlPage page
+
+!{var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");}
+
+@template.layout.page(
+content = @`
+    <div class="container-lg mt-3">
+        <div class="row justify-content-center">
+            <h1>Сайт: ${page.getName()}</h1>
+            <table class="table table-bordered table-hover mt-3">
+                <thead>
+                <tbody>
+                <tr>
+                    <td>ID</td>
+                    <td>${page.getId()}</td>
+                </tr>
+                <tr>
+                    <td>Имя</td>
+                    <td>${page.getName()}</td>
+                </tr>
+                <tr>
+                    <td>Дата добавления</td>
+                    <td>${page.getCreatedAt().toLocalDateTime().format(formatter)}</td>
+                </tr>
+                </tbody>
+                </thead>
+            </table>
+            <h4 class="display-5 mt-5">Проверки:</h4>
+
+            <form method="post">
+                <div class="justify-content-md-end mt-3">
+                    <button type="submit" class="btn btn-primary">Запустить проверку</button>
+                </div>
+            </form>
+
+            <table class="table table-bordered table-hover mt-4">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Код ответа</th>
+                    <th scope="col">title</th>
+                    <th scope="col">h1</th>
+                    <th scope="col">description</th>
+                    <th scope="col">Дата проверки</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+`
+)

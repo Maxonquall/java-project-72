@@ -20,17 +20,6 @@ public class Url {
         this.name = name;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
-
-
-    public String getName() {
-        return name;
-    }
 
 }

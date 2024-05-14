@@ -4,14 +4,28 @@
 
 
 @template.layout.page(
-page = page,
 content = @`
+    @if(page != null && page.getFlash() != null)
+    <div class="rounded-0 m-0 alert alert-dismissible fade show alert-info" role="alert">
+        ${page.getFlash()}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
 
     <section>
         <div class="container-lg mt-5">
             <h1>Сайты</h1>
     @if (page.getUrls().isEmpty())
-        <p> sffdsf </p>
+                <table class="table table-bordered table-hover mt-3">
+                    <thead>
+                    <tr>
+                        <th class="col-1">ID</th>
+                        <th>Имя</th>
+                        <th class="col-2">Последняя проверка</th>
+                        <th class="col-1">Код ответа</th>
+                    </tr>
+                    </thead>
+                </table>
     @else
             <table class="table table-bordered table-hover mt-3">
                 <thead>
@@ -27,7 +41,7 @@ content = @`
                     <tr>
                         <th scope="row">${url.getId()}</th>
                         <td>
-                            <a>${url.getName()}</a>
+                            <a href="${NamedRoutes.urlPath(url.getId().toString())}">${url.getName()}</a>
                         </td>
                         <td>
 
