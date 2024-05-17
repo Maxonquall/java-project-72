@@ -62,6 +62,13 @@ public class AppTest {
         });
     }
 
+    @Test
+    public void testNoFoundedUrl() {
+        JavalinTest.test(app, (server, client) -> {
+            var response = client.get(NamedRoutes.urlPath(String.valueOf(3233423)));
+            assertThat(response.code()).isEqualTo(404);
+        });
+    }
 
 
 }
