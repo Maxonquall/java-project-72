@@ -19,9 +19,6 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
-import static hexlet.code.repository.BaseRepository.dataSource;
-import static io.javalin.rendering.template.TemplateUtil.model;
-
 
 public class App {
 
