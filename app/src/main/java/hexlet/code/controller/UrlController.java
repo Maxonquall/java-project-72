@@ -1,13 +1,20 @@
 package hexlet.code.controller;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
 import hexlet.code.dto.urls.UrlPage;
 import hexlet.code.dto.urls.UrlsPage;
 import hexlet.code.model.Url;
+import hexlet.code.model.UrlCheck;
+import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.util.NamedRoutes;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
+import javax.lang.model.element.Element;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -61,8 +68,11 @@ public class UrlController {
         var id = ctx.pathParamAsClass("id", Long.class).get();
         var url = UrlRepository.find(id)
                 .orElseThrow(() -> new NotFoundResponse("Entity with id = " + id + " not found"));
-        var page = new UrlPage(id, url.getName(), url.getCreatedAt());
+        var urlChecks = UrlCheckRepository.getEntitiesByUrlId(id);
+        var page = new UrlPage(id, url.getName(), url.getCreatedAt(), urlChecks);
         ctx.render("urls/show.jte", model("page", page));
     }
+
 }
+
 

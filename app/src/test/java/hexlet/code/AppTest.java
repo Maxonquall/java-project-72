@@ -50,6 +50,7 @@ public class AppTest {
             assertThat(response.body().string()).contains("dzen");
         });
     }
+    
 
     @Test
     public void testUrlInfo() throws SQLException {

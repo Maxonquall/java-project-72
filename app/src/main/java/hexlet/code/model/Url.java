@@ -20,6 +20,4 @@ public class Url {
         this.name = name;
     }
 
-
-
 }

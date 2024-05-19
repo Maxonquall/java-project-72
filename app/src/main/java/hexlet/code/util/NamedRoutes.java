@@ -10,19 +10,13 @@ public class NamedRoutes {
         return "/urls";
     }
 
-    public static String buildPostPath() {
-        return "/posts/build";
-    }
-
-    public static String postPath(Long id) {
-        return postPath(String.valueOf(id));
-    }
-
-    public static String postPath(String id) {
-        return "/posts/" + id;
-    }
 
     public static String urlPath(String id) {
         return urlsPath() + "/" + id;
     }
+
+    public static String urlChecksPath(String id) {
+        return urlPath(id) + "/" + "checks";
+    }
+
 }

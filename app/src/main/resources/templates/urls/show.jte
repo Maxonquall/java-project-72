@@ -26,6 +26,16 @@ content = @`
                     <td>${page.getCreatedAt().toLocalDateTime().format(formatter)}</td>
                 </tr>
                 </tbody>
+                @for(var urlCheck: page.getUrlChecks())
+                    <tr>
+                        <td>${urlCheck.getId()}</td>
+                        <td>${urlCheck.getStatusCode()}</td>
+                        <td>${urlCheck.getTitle()}</td>
+                        <td>${urlCheck.getH1()}</td>
+                        <td>${urlCheck.getDescription()}</td>
+                        <td>${urlCheck.getCreatedAt().toLocalDateTime().format(formatter)}</td>
+                    </tr>
+                @endfor
                 </thead>
             </table>
             <h4 class="display-5 mt-5">Проверки:</h4>
