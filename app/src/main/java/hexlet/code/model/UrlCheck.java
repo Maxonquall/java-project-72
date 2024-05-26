@@ -20,7 +20,7 @@ public class UrlCheck {
     private Long urlId;
     private Timestamp createdAt;
 
-    public UrlCheck (Integer statusCode, String title, String description, String h1, Long urlId) {
+    public UrlCheck(Integer statusCode, String title, String description, String h1, Long urlId) {
         this.statusCode = statusCode;
         this.title = title;
         this.description = description;
@@ -30,5 +30,3 @@ public class UrlCheck {
 
 
 }
-
-//   var urlCheck = new UrlCheck(statusCode, title, description, h1, urlId);

@@ -8,6 +8,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 public class UrlCheckRepository extends BaseRepository {
     public static void save(UrlCheck urlCheck) throws SQLException {
@@ -54,6 +56,31 @@ public class UrlCheckRepository extends BaseRepository {
                 result.add(urlCheck);
             }
             return result;
+        }
+
+    }
+
+    public static Map<Long, UrlCheck> getLastCheck() throws SQLException {
+        var sql = "SELECT DISTINCT ON (url_id) * from url_checks ORDER BY url_id, id DESC";
+        try (var conn = dataSource.getConnection();
+             var preparedStatement = conn.prepareStatement(sql)) {
+            var resultSet = preparedStatement.executeQuery();
+            var lastChecks = new HashMap<Long, UrlCheck>();
+            while (resultSet.next()) {
+                var id = resultSet.getLong("id");
+                var statusCode = resultSet.getInt("status_code");
+                var h1 = resultSet.getString("h1");
+                var title = resultSet.getString("title");
+                var description = resultSet.getString("description");
+                var createdAt = resultSet.getTimestamp("created_at");
+                var urlCheck = new UrlCheck(statusCode, title, h1, description, id);
+
+                urlCheck.setId(id);
+                urlCheck.setCreatedAt(createdAt);
+                lastChecks.put(id, urlCheck);
+            }
+
+            return lastChecks;
         }
     }
 }

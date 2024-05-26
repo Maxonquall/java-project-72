@@ -19,4 +19,8 @@ public class NamedRoutes {
         return urlPath(id) + "/" + "checks";
     }
 
+    public static String urlChecksPath(Long id) {
+        return urlChecksPath(String.valueOf(id));
+    }
+
 }

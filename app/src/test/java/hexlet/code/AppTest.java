@@ -2,20 +2,49 @@ package hexlet.code;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.StringJoiner;
 
 import hexlet.code.model.Url;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.util.NamedRoutes;
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
+import okhttp3.mockwebserver.MockResponse;
 
 public class AppTest {
     Javalin app;
+
+    @BeforeAll
+    public static void beforeAllTests() throws IOException {
+        MockWebServer server = new MockWebServer();
+        String url = server.url("/").toString();
+        BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/templates/index.jte"));
+        String lineOfFile = reader.readLine();
+        var result = new StringJoiner("\n");
+
+        while (lineOfFile != null) {
+            result.add(lineOfFile);
+            lineOfFile = reader.readLine();
+        }
+        var mockResponse = new MockResponse().setBody(result.toString());
+        server.enqueue(mockResponse);
+    }
+
+    @AfterAll
+    public static void afterAllTests() throws IOException {
+        MockWebServer server = new MockWebServer();
+        server.shutdown();
+    }
 
     @BeforeEach
     public final void setUp() throws IOException, SQLException {
@@ -50,7 +79,6 @@ public class AppTest {
             assertThat(response.body().string()).contains("dzen");
         });
     }
-    
 
     @Test
     public void testUrlInfo() throws SQLException {

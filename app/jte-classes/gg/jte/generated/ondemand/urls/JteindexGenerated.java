@@ -1,10 +1,13 @@
 package gg.jte.generated.ondemand.urls;
 import hexlet.code.dto.urls.UrlsPage;
 import hexlet.code.util.NamedRoutes;
+import java.time.format.DateTimeFormatter;
 public final class JteindexGenerated {
 	public static final String JTE_NAME = "urls/index.jte";
-	public static final int[] JTE_LINE_INFO = {0,0,1,2,2,2,5,5,7,7,8,8,10,10,10,13,13,18,18,29,29,40,40,42,42,42,44,44,44,44,44,44,44,44,44,44,44,44,53,53,57,57,59,59,59,60,60,60,2,2,2,2};
+	public static final int[] JTE_LINE_INFO = {0,0,1,2,3,3,3,5,5,5,7,9,9,10,10,12,12,12,15,15,20,20,31,31,42,42,44,44,44,46,46,46,46,46,46,46,46,46,46,46,46,49,49,49,52,52,52,55,55,59,59,61,61,61,62,62,62,3,3,3,3};
 	public static void render(gg.jte.html.HtmlTemplateOutput jteOutput, gg.jte.html.HtmlInterceptor jteHtmlInterceptor, UrlsPage page) {
+		jteOutput.writeContent("\r\n");
+		var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 		jteOutput.writeContent("\r\n\r\n");
 		gg.jte.generated.ondemand.layout.JtepageGenerated.render(jteOutput, jteHtmlInterceptor, new gg.jte.html.HtmlContent() {
 			public void writeTo(gg.jte.html.HtmlTemplateOutput jteOutput) {
@@ -36,7 +39,13 @@ public final class JteindexGenerated {
 						jteOutput.writeContent(">");
 						jteOutput.setContext("a", null);
 						jteOutput.writeUserContent(url.getName());
-						jteOutput.writeContent("</a>\r\n                        </td>\r\n                        <td>\r\n\r\n                        </td>\r\n                        <td>\r\n\r\n                        </td>\r\n                    </tr>\r\n                ");
+						jteOutput.writeContent("</a>\r\n                        </td>\r\n                        <td>\r\n                            ");
+						jteOutput.setContext("td", null);
+						jteOutput.writeUserContent(page.getChecks().get(url.getId()) == null ? " " : page.getChecks().get(url.getId()).getCreatedAt().toLocalDateTime().format(formatter));
+						jteOutput.writeContent("\r\n                        </td>\r\n                        <td>\r\n                            ");
+						jteOutput.setContext("td", null);
+						jteOutput.writeUserContent(page.getChecks().get(url.getId()) == null ? " " : page.getChecks().get(url.getId()).getStatusCode().toString());
+						jteOutput.writeContent("\r\n                        </td>\r\n                    </tr>\r\n                ");
 					}
 					jteOutput.writeContent("\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n        ");
 				}

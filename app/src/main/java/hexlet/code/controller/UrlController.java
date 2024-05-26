@@ -1,20 +1,17 @@
 package hexlet.code.controller;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
+
 import hexlet.code.dto.urls.UrlPage;
 import hexlet.code.dto.urls.UrlsPage;
 import hexlet.code.model.Url;
-import hexlet.code.model.UrlCheck;
 import hexlet.code.repository.UrlCheckRepository;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.util.NamedRoutes;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
-import javax.lang.model.element.Element;
+
+
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,7 +25,8 @@ public class UrlController {
     public static void index(Context ctx) throws SQLException {
       // ctx.render("urls/index.jte");
         var urls = UrlRepository.getEntities();
-        var page = new UrlsPage(urls);
+        var checks = UrlCheckRepository.getLastCheck();
+        var page = new UrlsPage(urls, checks);
         page.setFlash(ctx.consumeSessionAttribute("flash"));
         page.setFlashType(ctx.consumeSessionAttribute("flash-type"));
         ctx.render("urls/index.jte", model("page", page));

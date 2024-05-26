@@ -26,21 +26,12 @@ content = @`
                     <td>${page.getCreatedAt().toLocalDateTime().format(formatter)}</td>
                 </tr>
                 </tbody>
-                @for(var urlCheck: page.getUrlChecks())
-                    <tr>
-                        <td>${urlCheck.getId()}</td>
-                        <td>${urlCheck.getStatusCode()}</td>
-                        <td>${urlCheck.getTitle()}</td>
-                        <td>${urlCheck.getH1()}</td>
-                        <td>${urlCheck.getDescription()}</td>
-                        <td>${urlCheck.getCreatedAt().toLocalDateTime().format(formatter)}</td>
-                    </tr>
-                @endfor
+
                 </thead>
             </table>
             <h4 class="display-5 mt-5">Проверки:</h4>
 
-            <form method="post">
+            <form method="post" action="${NamedRoutes.urlChecksPath(page.getId())}" >
                 <div class="justify-content-md-end mt-3">
                     <button type="submit" class="btn btn-primary">Запустить проверку</button>
                 </div>
@@ -56,6 +47,16 @@ content = @`
                     <th scope="col">description</th>
                     <th scope="col">Дата проверки</th>
                 </tr>
+                @for(var urlCheck: page.getUrlChecks())
+                    <tr>
+                        <td>${urlCheck.getId()}</td>
+                        <td>${urlCheck.getStatusCode()}</td>
+                        <td>${urlCheck.getTitle()}</td>
+                        <td>${urlCheck.getH1()}</td>
+                        <td>${urlCheck.getDescription()}</td>
+                        <td>${urlCheck.getCreatedAt().toLocalDateTime().format(formatter)}</td>
+                    </tr>
+                @endfor
                 </thead>
             </table>
         </div>
