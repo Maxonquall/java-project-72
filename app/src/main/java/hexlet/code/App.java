@@ -70,7 +70,7 @@ public class App {
         });
 
         app.before(ctx -> {
-            ctx.contentType("text/html; charset=utf-8"); 
+            ctx.contentType("text/html; charset=utf-8");
         });
 
         app.get(NamedRoutes.rootPath(), RootController::index);
