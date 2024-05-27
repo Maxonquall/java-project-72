@@ -53,14 +53,6 @@ public class App {
         var hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl("jdbc:h2:mem:project;DB_CLOSE_DELAY=-1;");
 
-        var dataBaseUrl = getJdbcUrl();
-        if (dataBaseUrl == null || dataBaseUrl.equals("JDBC_DATABASE_URL")) {
-            hikariConfig.setJdbcUrl(dataBaseUrl);
-        } else {
-            hikariConfig.setUsername(System.getenv("JDBC_DATABASE_USERNAME"));
-            hikariConfig.setPassword(System.getenv("JDBC_DATABASE_PASSWORD"));
-            hikariConfig.setJdbcUrl(dataBaseUrl);
-        }
 
         var dataSource = new HikariDataSource(hikariConfig);
 
