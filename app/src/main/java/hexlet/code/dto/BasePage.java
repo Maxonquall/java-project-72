@@ -9,11 +9,11 @@ public class BasePage {
     private String flash;
     private String flashType;
 
-    public void setFlash(String flash) {
+    public final void setFlash(String flash) {
         this.flash = flash;
     }
 
-    public void setFlashType(String flashType) {
+    public final void setFlashType(String flashType) {
         this.flashType = flashType;
     }
 }
