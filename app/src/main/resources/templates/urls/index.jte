@@ -7,11 +7,19 @@
 
 @template.layout.page(
 content = @`
+
     @if(page != null && page.getFlash() != null)
-    <div class="rounded-0 m-0 alert alert-dismissible fade show alert-info" role="alert">
-        ${page.getFlash()}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+        @if (page.getFlashType().equals("success"))
+            <div class="rounded-0 m-0 alert alert-dismissible fade show alert-info" role="alert">
+                 ${page.getFlash()}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @else
+            <div class="rounded-0 m-0 alert alert-dismissible fade show alert-danger" role="alert">
+                ${page.getFlash()}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @endif
     @endif
 
     <section>

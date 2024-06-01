@@ -1,7 +1,6 @@
 @import gg.jte.Content
 @param Content content
 
-
 <!DOCTYPE html>
 <html>
 
@@ -32,6 +31,15 @@
         </div>
     </div>
 </nav>
+
+<!--  @if(page != null && page.getFlash() != null)
+    @if (page.getFlashType().equals("warning"))
+            <div class="rounded-0 m-0 alert alert-dismissible fade show alert-danger" role="alert">
+                ${page.getFlash()}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+@endif -->
 
 <main class="flex-grow-1">
     ${content}

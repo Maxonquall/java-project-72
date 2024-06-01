@@ -4,5 +4,18 @@
 <a href="https://codeclimate.com/github/Maxonquall/java-project-72/test_coverage"><img src="https://api.codeclimate.com/v1/badges/1b44a4519ef2ac70f23b/test_coverage" /></a>
 ![Java CI](https://github.com/Maxonquall/java-project-72/actions/workflows/main.yml/badge.svg)
 
+### Description:
+This application checks applications for SEO suitability.
+
+### Install:
+git@github.com:Maxonquall/java-project-72.git
+cd java-project-72/app
+make -C app build
+
+## Setup
+
+```bash
+make -C app build
+```
 
 ### [Click here](https://java-project-72-jnql.onrender.com) to start analyzing!

@@ -9,17 +9,20 @@ import java.sql.SQLException;
 import java.util.StringJoiner;
 
 import hexlet.code.model.Url;
+import hexlet.code.repository.BaseRepository;
 import hexlet.code.repository.UrlRepository;
 import hexlet.code.util.NamedRoutes;
 import okhttp3.mockwebserver.MockWebServer;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
 
 import io.javalin.Javalin;
 import io.javalin.testtools.JavalinTest;
 import okhttp3.mockwebserver.MockResponse;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class AppTest {
     Javalin app;
@@ -51,6 +54,13 @@ public class AppTest {
         app = App.getApp();
     }
 
+    @AfterEach
+    public final void closeConnection() {
+        if (BaseRepository.dataSource != null) {
+            BaseRepository.dataSource.close();
+        }
+    }
+
     @Test
     public void testMainPage() {
         JavalinTest.test(app, (server, client) -> {
@@ -77,6 +87,17 @@ public class AppTest {
             var response = client.post(NamedRoutes.urlsPath(), requestBody);
             assertThat(response.code()).isEqualTo(200);
             assertThat(response.body().string()).contains("dzen");
+            assertThat(UrlRepository.getEntities()).hasSize(1);
+        });
+    }
+
+    @Test
+    public void testCreateIncorrectUrl() {
+        JavalinTest.test(app, (server, client) -> {
+            var requestBody = "url=sadsddasd";
+            var response = client.post(NamedRoutes.urlsPath(), requestBody);
+            assertThat(response.code()).isEqualTo(200);
+            assertThat(UrlRepository.getEntities()).hasSize(0);
         });
     }
 
@@ -88,6 +109,7 @@ public class AppTest {
             var response = client.get(NamedRoutes.urlPath(String.valueOf(url.getId())));
             assertThat(response.code()).isEqualTo(200);
             assertThat(response.body().string()).contains("description");
+            assertThat(UrlRepository.getEntities()).hasSize(1);
         });
     }
 
