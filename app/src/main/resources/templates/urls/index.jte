@@ -1,13 +1,13 @@
-@import hexlet.code.dto.urls.UrlsPage
 @import hexlet.code.util.NamedRoutes
+@import hexlet.code.dto.urls.UrlsPage
 @import java.time.format.DateTimeFormatter
 @param UrlsPage page
 
 !{var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");}
 
 @template.layout.page(
+page = page,
 content = @`
-
     @if(page != null && page.getFlash() != null)
         @if (page.getFlashType().equals("success"))
             <div class="rounded-0 m-0 alert alert-dismissible fade show alert-info" role="alert">

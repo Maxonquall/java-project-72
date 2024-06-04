@@ -2,15 +2,8 @@
 @param BasePage page
 
 @template.layout.page(
+page = page,
 content = @`
-  <!--  @if(page != null && page.getFlash() != null)
-        @if (page.getFlashType().equals("warning"))
-            <div class="rounded-0 m-0 alert alert-dismissible fade show alert-danger" role="alert">
-                ${page.getFlash()}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-    @endif -->
     <section>
         <div class="container-fluid bg-dark p-5">
             <div class="row">
