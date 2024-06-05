@@ -30,7 +30,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav">
-                <a class="nav-link" href="/">Главная</a>
+                <a class="nav-link"  href="/">Главная</a>
                 <a class="nav-link" href="/urls">Сайты</a>
             </div>
         </div>

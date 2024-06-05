@@ -3,12 +3,13 @@
 @import java.time.format.DateTimeFormatter
 @param UrlsPage page
 
+
 !{var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");}
 
 @template.layout.page(
 page = page,
 content = @`
-    @if(page != null && page.getFlash() != null)
+<%--    @if(page != null && page.getFlash() != null)
         @if (page.getFlashType().equals("success"))
             <div class="rounded-0 m-0 alert alert-dismissible fade show alert-info" role="alert">
                  ${page.getFlash()}
@@ -20,7 +21,7 @@ content = @`
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             @endif
-    @endif
+    @endif --%>
 
     <section>
         <div class="container-lg mt-5">

@@ -35,8 +35,9 @@ public class UrlCheckController {
         } catch (Exception e) {
             ctx.sessionAttribute("flash", "Некорректный URL или проверка не удалась");
             ctx.sessionAttribute("flash-type", "warning");
+            //ctx.redirect(NamedRoutes.urlsPath());
         }
-        ctx.redirect(NamedRoutes.urlsPath());
+        ctx.redirect(NamedRoutes.urlPath(String.valueOf(urlId)));
     }
 }
 
