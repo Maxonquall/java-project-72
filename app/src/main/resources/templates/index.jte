@@ -1,8 +1,8 @@
-﻿@import hexlet.code.dto.BasePage
-@param BasePage page
+﻿<%--@import hexlet.code.dto.BasePage
+@param BasePage page--%>
 
 @template.layout.page(
-page = page,
+
 content = @`
 
 <%--    @if(page != null && page.getFlash() != null)

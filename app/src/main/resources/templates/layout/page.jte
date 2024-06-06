@@ -37,11 +37,11 @@
     </div>
 </nav>
 
-@if(page != null && page.getFlash() != null)
+<%-- @if(page != null && page.getFlash() != null)
     <div class="alert alert-${page.getFlashType()}" role="alert">
         ${page.getFlash()}
     </div>
-@endif
+@endif --%>
 
 <main class="flex-grow-1">
     ${content}
