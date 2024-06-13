@@ -1,14 +1,8 @@
 @import gg.jte.Content
-
 @import hexlet.code.dto.BasePage
 
 @param Content content
 @param BasePage page = null
-
-<%--Георгий, привет!
-Основная проблема это формирование и передача page в странчки. Вероятно, вывод флеша надо реализовывать в лэйауте.
-Я пробовал разыми способами, оставил их закомменчеными, чтобы проходились тесты для отправки на проверку.
-Так же пробовал работать с контроллерами, но результат примерно тот же - главная страница не запускается. --%>
 
 
 <!DOCTYPE html>
@@ -35,18 +29,21 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="navbar-nav">
-                <a class="nav-link"  href="/">Главная</a>
-                <a class="nav-link" href="/urls">Сайты</a>
+                <a class="nav-link" aria-current="page" href="/">Главная</a>
+                <a class="nav-link" aria-current="page" href="/urls">Сайты</a>
             </div>
         </div>
     </div>
 </nav>
 
-<%-- @if(page != null && page.getFlash() != null)
-    <div class="alert alert-${page.getFlashType()}" role="alert">
-        ${page.getFlash()}
-    </div>
-@endif --%>
+
+    @if (page != null && page.getFlash() != null)
+        <div class="rounded-0 m-0 alert alert-${page.getFlashType()} alert-dismissible fade show" role="alert">
+            ${page.getFlash()}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
 
 <main class="flex-grow-1">
     ${content}

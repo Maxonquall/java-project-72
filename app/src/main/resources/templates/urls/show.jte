@@ -6,12 +6,11 @@
 !{var formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");}
 
 @template.layout.page(
-
+page = page,
 content = @`
-
     <div class="container-lg mt-3">
         <div class="row justify-content-center">
-            <h1>Сайт: ${page.getName()}</h1>
+            <h3 class="display-5">Сайт: ${page.getName()}</h3>
             <table class="table table-bordered table-hover mt-3">
                 <thead>
                 <tbody>
@@ -28,12 +27,12 @@ content = @`
                     <td>${page.getCreatedAt().toLocalDateTime().format(formatter)}</td>
                 </tr>
                 </tbody>
-
                 </thead>
             </table>
+
             <h4 class="display-5 mt-5">Проверки:</h4>
 
-            <form method="post" action="${NamedRoutes.urlChecksPath(page.getId())}" >
+            <form method="post" action="${NamedRoutes.urlChecksPath(page.getId())}">
                 <div class="justify-content-md-end mt-3">
                     <button type="submit" class="btn btn-primary">Запустить проверку</button>
                 </div>
@@ -49,6 +48,8 @@ content = @`
                     <th scope="col">description</th>
                     <th scope="col">Дата проверки</th>
                 </tr>
+                </thead>
+                <tbody>
                 @for(var urlCheck: page.getUrlChecks())
                     <tr>
                         <td>${urlCheck.getId()}</td>
@@ -59,7 +60,7 @@ content = @`
                         <td>${urlCheck.getCreatedAt().toLocalDateTime().format(formatter)}</td>
                     </tr>
                 @endfor
-                </thead>
+                </tbody>
             </table>
         </div>
     </div>

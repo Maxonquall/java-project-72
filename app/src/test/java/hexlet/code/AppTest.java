@@ -67,7 +67,7 @@ public class AppTest {
             var response = client.get(NamedRoutes.rootPath());
             assertThat(response.code()).isEqualTo(200);
             assertThat(response.body().string()).contains("SEO");
-            //  assertThat(response.body().string()).contains("Анализатор страниц");
+          //  assertThat(response.body().string()).contains("Анализатор страниц");
         });
     }
 
@@ -76,7 +76,7 @@ public class AppTest {
         JavalinTest.test(app, (server, client) -> {
             var response = client.get(NamedRoutes.urlsPath());
             assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body().string()).contains("ID");
+            assertThat(response.body().string()).contains("URL");
         });
     }
 

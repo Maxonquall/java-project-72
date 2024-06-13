@@ -2,19 +2,21 @@ package hexlet.code.repository;
 
 import hexlet.code.model.UrlCheck;
 
+
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
+import java.util.Date;
 
 public class UrlCheckRepository extends BaseRepository {
     public static void save(UrlCheck urlCheck) throws SQLException {
         var sql = "INSERT INTO url_checks (url_id, status_code, h1, title, description, created_at)"
                 + "VALUES (?, ?, ?, ?, ?, ?)";
+        var date = new Date();
         try (var conn = dataSource.getConnection();
              var preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setLong(1, urlCheck.getUrlId());
@@ -22,10 +24,9 @@ public class UrlCheckRepository extends BaseRepository {
             preparedStatement.setString(3, urlCheck.getH1());
             preparedStatement.setString(4, urlCheck.getTitle());
             preparedStatement.setString(5, urlCheck.getDescription());
-            var date = new Date();
-            var time = new Timestamp(date.getTime());
-            preparedStatement.setTimestamp(6, time);
+            preparedStatement.setTimestamp(6, new Timestamp(date.getTime()));
             preparedStatement.executeUpdate();
+
             var generatedKeys = preparedStatement.getGeneratedKeys();
             if (generatedKeys.next()) {
                 urlCheck.setId(generatedKeys.getLong(1));
@@ -50,22 +51,21 @@ public class UrlCheckRepository extends BaseRepository {
                 var title = resultSet.getString("title");
                 var description = resultSet.getString("description");
                 var createdAt = resultSet.getTimestamp("created_at");
-                var urlCheck = new UrlCheck(statusCode, title, description, h1, urlId);
+                var urlCheck = new UrlCheck(statusCode, title, h1, description, id);
                 urlCheck.setCreatedAt(createdAt);
                 urlCheck.setId(id);
                 result.add(urlCheck);
             }
             return result;
         }
-
     }
 
-    public static Map<Long, UrlCheck> getLastCheck() throws SQLException {
+    public static Map<Long, UrlCheck> getListOfLastChecks() throws SQLException {
         var sql = "SELECT DISTINCT ON (url_id) * from url_checks ORDER BY url_id, id DESC";
         try (var conn = dataSource.getConnection();
              var preparedStatement = conn.prepareStatement(sql)) {
             var resultSet = preparedStatement.executeQuery();
-            var lastChecks = new HashMap<Long, UrlCheck>();
+            var latestChecks = new HashMap<Long, UrlCheck>();
             while (resultSet.next()) {
                 var id = resultSet.getLong("id");
                 var statusCode = resultSet.getInt("status_code");
@@ -77,10 +77,10 @@ public class UrlCheckRepository extends BaseRepository {
 
                 urlCheck.setId(id);
                 urlCheck.setCreatedAt(createdAt);
-                lastChecks.put(id, urlCheck);
+                latestChecks.put(id, urlCheck);
             }
 
-            return lastChecks;
+            return latestChecks;
         }
     }
 }
