@@ -78,12 +78,15 @@ public class App {
 
         BaseRepository.dataSource = dataSource;
 
+        TemplateEngine templateEngine = createTemplateEngine();
+        JavalinJte javalinJte = new JavalinJte(templateEngine);
+
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
-            config.fileRenderer(new JavalinJte());
+            config.fileRenderer(javalinJte);
         });
 
-        JavalinJte.init(createTemplateEngine());
+
 
         app.get(NamedRoutes.rootPath(), RootController::index);
         app.get(NamedRoutes.urlsPath(), UrlController::index);
