@@ -80,7 +80,7 @@ public class App {
 
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
-            //  config.fileRenderer(new JavalinJte());
+            config.fileRenderer(new JavalinJte());
         });
 
         JavalinJte.init(createTemplateEngine());
